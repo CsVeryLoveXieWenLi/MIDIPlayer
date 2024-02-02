@@ -1,9 +1,9 @@
 /**
  * @Author: CsVeryLoveXieWenLi
- * @Date: 2024-01-31 22:48:00
+ * @Date: 2024-02-02 16:36:36
  * @LastEditors: CsVeryLoveXieWenLi
- * @LastEditTime: 2024-01-31 22:56:26
- * @Description: 事件监听与移除 头文件
+ * @LastEditTime: 2024-02-02 16:36:36
+ * @Description: 命令注册 头文件
  * @QQ: 1172236399
  * @Sign: 有些故事，总是美妙又缥缈，郁郁不得终。
  * @Copyright (c) 2024 by CsVeryLoveXieWenLi, All Rights Reserved.
@@ -11,12 +11,12 @@
 #pragma once
 
 
-namespace listener {
+namespace command {
 
-// 装载所有监听
+// 装载所有命令
 void install();
 
-// 移除所有监听
+// 卸载所有命令
 void remove();
 
-} // namespace listener
+} // namespace command

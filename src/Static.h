@@ -1,40 +1,24 @@
 /**
  * @Author: CsVeryLoveXieWenLi
- * @Date: 2024-01-31 22:46:51
+ * @Date: 2024-02-02 16:51:10
  * @LastEditors: CsVeryLoveXieWenLi
- * @LastEditTime: 2024-02-02 16:44:09
- * @Description: 事件监听与移除
+ * @LastEditTime: 2024-02-02 17:00:34
+ * @Description: 全局静态数据
  * @QQ: 1172236399
  * @Sign: 有些故事，总是美妙又缥缈，郁郁不得终。
  * @Copyright (c) 2024 by CsVeryLoveXieWenLi, All Rights Reserved.
  */
-
-#include "Listener.h"
-
-#include "mc/world/actor/player/Player.h"
-
-#include <ll/api/event/EventBus.h>
-#include <ll/api/event/ListenerBase.h>
-#include <ll/api/event/player/PlayerJoinEvent.h>
-#include <ll/api/schedule/Scheduler.h>
-#include <ll/api/schedule/Task.h>
-#include <mc/network/packet/PlaySoundPacket.h>
-#include <random>
+#pragma once
 
 
-namespace listener {
+#include <deque>
 
-using namespace ll::event;
-using namespace ll::schedule;
-using namespace ll::chrono_literals;
 
-ServerTimeScheduler scheduler;
+const char* COMMAND_NAME        = "midi";
+const char* COMMAND_ALIAS       = "mid";
+const char* COMMAND_DESCRIPTION = "play you midi";
 
-Player* player = nullptr;
-
-ListenerPtr mPlayerJoinEventListener;
-
-std::deque<std::string> SOUNDS{
+std::deque<const char*> PIANO_NOTES{
     "midi.piano.A0",  "midi.piano.Bb0", "midi.piano.B0", "midi.piano.C1",  "midi.piano.Db1", "midi.piano.D1",
     "midi.piano.Eb1", "midi.piano.E1",  "midi.piano.F1", "midi.piano.Gb1", "midi.piano.G1",  "midi.piano.Ab1",
     "midi.piano.A1",  "midi.piano.Bb1", "midi.piano.B1", "midi.piano.C2",  "midi.piano.Db2", "midi.piano.D2",
@@ -51,31 +35,3 @@ std::deque<std::string> SOUNDS{
     "midi.piano.Eb7", "midi.piano.E7",  "midi.piano.F7", "midi.piano.Gb7", "midi.piano.G7",  "midi.piano.Ab7",
     "midi.piano.A7",  "midi.piano.Bb7", "midi.piano.B7", "midi.piano.C8"
 };
-
-
-// 装载所有监听
-void install() {
-    auto& eventBus = EventBus::getInstance();
-
-    mPlayerJoinEventListener = eventBus.emplaceListener<PlayerJoinEvent>([&](PlayerJoinEvent& event) {
-        player = &static_cast<Player&>(event.self());
-
-        scheduler.add<RepeatTask>(1ms, []() {
-            std::random_device                 rd;
-            std::mt19937                       gen(rd());
-            std::uniform_int_distribution<int> dist(0, 87);
-
-            PlaySoundPacket packet(SOUNDS[dist(gen)], player->getPosition(), 1.0, 1.0);
-            packet.sendTo(*player);
-        });
-    });
-}
-
-// 移除所有监听
-void remove() {
-    auto& eventBus = EventBus::getInstance();
-
-    eventBus.removeListener(mPlayerJoinEventListener);
-}
-
-} // namespace listener

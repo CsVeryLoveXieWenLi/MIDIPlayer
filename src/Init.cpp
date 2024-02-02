@@ -2,7 +2,7 @@
  * @Author: CsVeryLoveXieWenLi
  * @Date: 2024-01-31 22:36:37
  * @LastEditors: CsVeryLoveXieWenLi
- * @LastEditTime: 2024-02-02 16:07:48
+ * @LastEditTime: 2024-02-02 17:04:36
  * @Description: 插件入口
  * @QQ: 1172236399
  * @Sign: 有些故事，总是美妙又缥缈，郁郁不得终。
@@ -10,6 +10,7 @@
  */
 #include "Init.h"
 
+#include "Command.h"
 #include "Listener.h"
 
 #include <ll/api/plugin/NativePlugin.h>
@@ -37,19 +38,21 @@ bool Init::load(ll::plugin::NativePlugin& self) {
 }
 
 bool Init::enable() {
-    getSelf().getLogger().info("enabling...");
-
     // 装载所有监听
     listener::install();
+
+    // 装载所有命令
+    command::install();
 
     return true;
 }
 
 bool Init::disable() {
-    getSelf().getLogger().info("disabling...");
-
     // 移除所有监听
     listener::remove();
+
+    // 卸载所有命令
+    command::remove();
 
     return true;
 }
@@ -68,4 +71,4 @@ _declspec(dllexport) bool ll_plugin_disable(ll::plugin::NativePlugin&) { return 
 // }
 }
 
-} // namespace rename_this
+} // namespace Init

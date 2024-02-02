@@ -6,11 +6,13 @@
  * @Description: 插件入口 头文件
  * @QQ: 1172236399
  * @Sign: 有些故事，总是美妙又缥缈，郁郁不得终。
- * @Copyright (c) 2024 by CsVeryLoveXieWenLi, All Rights Reserved. 
+ * @Copyright (c) 2024 by CsVeryLoveXieWenLi, All Rights Reserved.
  */
 #pragma once
 
+
 #include <ll/api/plugin/NativePlugin.h>
+
 
 namespace Init {
 
@@ -40,4 +42,4 @@ private:
     ll::plugin::NativePlugin* mSelf{};
 };
 
-} // namespace rename_this
+} // namespace Init
