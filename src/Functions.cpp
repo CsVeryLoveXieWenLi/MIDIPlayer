@@ -2,7 +2,7 @@
  * @Author: CsVeryLoveXieWenLi
  * @Date: 2024-02-02 16:34:19
  * @LastEditors: CsVeryLoveXieWenLi
- * @LastEditTime: 2024-02-02 18:36:36
+ * @LastEditTime: 2024-02-02 18:49:41
  * @Description: 功能的实现
  * @QQ: 1172236399
  * @Sign: 有些故事，总是美妙又缥缈，郁郁不得终。
@@ -15,7 +15,6 @@
 #include "Task.h"
 
 #include <unordered_map>
-
 
 
 namespace function {
@@ -62,7 +61,7 @@ void commandCallback(
     auto* player = static_cast<Player*>(entity);
 
     // 标识
-    const mce::UUID& uuid = player->getUuid();
+    auto& uuid = player->getUuid();
 
     // 功能
     std::string func = results.at("func").get<std::string>();

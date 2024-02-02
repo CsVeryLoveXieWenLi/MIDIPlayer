@@ -22,13 +22,13 @@ namespace midi {
  * 返回数据
  */
 struct Result {
-    Result(std::deque<std::deque<uint8>>& notes, std::deque<uint64>& times) {
+    Result(std::deque<std::deque<uint8>>& notes, std::deque<uint16>& times) {
         this->notes = notes;
         this->times = times;
     };
 
     std::deque<std::deque<uint8>> notes;
-    std::deque<uint64>            times;
+    std::deque<uint16>            times;
 };
 
 /**

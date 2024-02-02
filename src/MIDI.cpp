@@ -29,7 +29,7 @@ Result parse(std::string& path) {
 
     // 初始化
     std::deque<std::deque<uint8>> notes;
-    std::deque<uint64>            times;
+    std::deque<uint16>            times;
 
     Result   result(notes, times);
     MidiFile file;
@@ -54,7 +54,7 @@ Result parse(std::string& path) {
     uint8  note;
     uint64 time;
 
-    uint64 diff;
+    uint16 diff;
 
     MidiEventList* tracks = &file[0];
     int            length = tracks->size();

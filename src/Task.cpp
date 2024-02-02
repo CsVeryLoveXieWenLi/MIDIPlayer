@@ -2,7 +2,7 @@
  * @Author: CsVeryLoveXieWenLi
  * @Date: 2024-02-02 17:27:32
  * @LastEditors: CsVeryLoveXieWenLi
- * @LastEditTime: 2024-02-02 18:45:05
+ * @LastEditTime: 2024-02-02 19:32:19
  * @Description: 播放队列
  * @QQ: 1172236399
  * @Sign: 有些故事，总是美妙又缥缈，郁郁不得终。
@@ -11,6 +11,7 @@
 
 #include "Task.h"
 
+#include <chrono>
 #include <ll/api/base/StdInt.h>
 #include <ll/api/schedule/Scheduler.h>
 #include <ll/api/schedule/Task.h>
@@ -19,6 +20,9 @@
 
 
 namespace task {
+
+using namespace ll::schedule;
+using namespace ll::chrono_literals;
 
 
 std::deque<const char*> PIANO_NOTES{
@@ -44,7 +48,7 @@ std::deque<const char*> PIANO_NOTES{
 MusicPlayer::MusicPlayer(Player* player) { this->player = player; }
 
 // 播放
-void MusicPlayer::play(std::deque<std::deque<uint8>>& notes, std::deque<uint64>& times) {
+void MusicPlayer::play(std::deque<std::deque<uint8>>& notes, std::deque<uint16>& times) {
     // 清空缓存
     if (is_play) stop();
 
@@ -63,9 +67,11 @@ void MusicPlayer::play(std::deque<std::deque<uint8>>& notes, std::deque<uint64>&
     this->times.pop_front();
 
     // 每1毫秒检查一次
-    scheduler.add<RepeatTask>(1ms, [&]() {
+    this->scheduler.add<RepeatTask>(std::chrono::milliseconds(1), [&]() {
         // 每次经过1毫秒
         this->time--;
+
+        printf("%zu %i %zu %zu\n", this->note.size(), this->time, this->notes.size(), this->times.size());
 
         // 播放完毕
         if (this->notes.empty()) {

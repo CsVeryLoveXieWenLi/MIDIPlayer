@@ -2,7 +2,7 @@
  * @Author: CsVeryLoveXieWenLi
  * @Date: 2024-02-02 17:27:40
  * @LastEditors: CsVeryLoveXieWenLi
- * @LastEditTime: 2024-02-02 17:52:48
+ * @LastEditTime: 2024-02-02 19:07:16
  * @Description: 播放队列
  * @QQ: 1172236399
  * @Sign: 有些故事，总是美妙又缥缈，郁郁不得终。
@@ -30,7 +30,7 @@ public:
     explicit MusicPlayer(Player* player);
 
     // 播放
-    void play(std::deque<std::deque<uint8>>& notes, std::deque<uint64>& times);
+    void play(std::deque<std::deque<uint8>>& notes, std::deque<uint16>& times);
 
     // 停止
     void stop();
@@ -40,13 +40,13 @@ private:
     bool    is_play = false;
 
     std::deque<std::deque<uint8>> notes;
-    std::deque<uint64>            times;
+    std::deque<uint16>            times;
 
     std::deque<uint8> note;
-    uint64            time = 0;
+    uint16            time = 0;
 
-    // 定时器十分重要 ? ServerTimeAsyncScheduler ServerTimeScheduler
-    ServerTimeScheduler scheduler;
+    // 定时器十分重要 ? ServerTimeAsyncScheduler ServerTimeScheduler SystemTimeScheduler
+    SystemTimeScheduler scheduler;
 };
 
 } // namespace task
