@@ -10,7 +10,7 @@
  */
 #pragma once
 
-namespace Listener {
+namespace listener {
 
 // 装载所有监听
 void install();
@@ -18,4 +18,4 @@ void install();
 // 移除所有监听
 void remove();
 
-} // namespace Listener
+} // namespace listener

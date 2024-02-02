@@ -2,7 +2,7 @@
  * @Author: CsVeryLoveXieWenLi
  * @Date: 2024-01-31 22:36:37
  * @LastEditors: CsVeryLoveXieWenLi
- * @LastEditTime: 2024-01-31 23:58:46
+ * @LastEditTime: 2024-02-02 16:07:48
  * @Description: 插件入口
  * @QQ: 1172236399
  * @Sign: 有些故事，总是美妙又缥缈，郁郁不得终。
@@ -40,7 +40,7 @@ bool Init::enable() {
     getSelf().getLogger().info("enabling...");
 
     // 装载所有监听
-    Listener::install();
+    listener::install();
 
     return true;
 }
@@ -49,7 +49,7 @@ bool Init::disable() {
     getSelf().getLogger().info("disabling...");
 
     // 移除所有监听
-    Listener::remove();
+    listener::remove();
 
     return true;
 }

@@ -2,7 +2,7 @@
  * @Author: CsVeryLoveXieWenLi
  * @Date: 2024-01-31 22:46:51
  * @LastEditors: CsVeryLoveXieWenLi
- * @LastEditTime: 2024-02-01 00:05:06
+ * @LastEditTime: 2024-02-02 16:25:19
  * @Description: 事件监听与移除
  * @QQ: 1172236399
  * @Sign: 有些故事，总是美妙又缥缈，郁郁不得终。
@@ -11,7 +11,8 @@
 
 #include "Listener.h"
 
-#include <cstdio>
+#include "mc/world/actor/player/Player.h"
+
 #include <ll/api/event/EventBus.h>
 #include <ll/api/event/ListenerBase.h>
 #include <ll/api/event/player/PlayerJoinEvent.h>
@@ -21,9 +22,15 @@
 #include <random>
 
 
-namespace Listener {
+namespace listener {
 
 using namespace ll::event;
+using namespace ll::schedule;
+using namespace ll::chrono_literals;
+
+SystemTimeScheduler scheduler;
+
+Player* player = nullptr;
 
 ListenerPtr mPlayerJoinEventListener;
 
@@ -51,22 +58,15 @@ void install() {
     auto& eventBus = EventBus::getInstance();
 
     mPlayerJoinEventListener = eventBus.emplaceListener<PlayerJoinEvent>([&](PlayerJoinEvent& event) {
-        using namespace ll::schedule;
-        using namespace ll::chrono_literals;
+        player = &static_cast<Player&>(event.self());
 
-        auto& player = static_cast<Player&>(event.self());
+        scheduler.add<RepeatTask>(40ms, []() {
+            std::random_device                 rd;
+            std::mt19937                       gen(rd());
+            std::uniform_int_distribution<int> dist(0, 87);
 
-        SystemTimeScheduler scheduler;
-
-        std::random_device                 rd;
-        std::mt19937                       gen(rd());
-        std::uniform_int_distribution<int> dist(0, 87);
-
-        scheduler.add<RepeatTask>(std::chrono::milliseconds(1), [&player, &dist, &gen]() {
-            printf("success\n");
-
-            PlaySoundPacket packet("note.pling", player.getPosition(), 1.0, 1.0);
-            packet.sendTo(player);
+            PlaySoundPacket packet(SOUNDS[dist(gen)], player->getPosition(), 1.0, 1.0);
+            packet.sendTo(*player);
         });
     });
 };
@@ -78,4 +78,4 @@ void remove() {
     eventBus.removeListener(mPlayerJoinEventListener);
 };
 
-} // namespace Listener
+} // namespace listener
