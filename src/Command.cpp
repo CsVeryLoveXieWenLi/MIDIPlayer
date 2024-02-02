@@ -12,7 +12,6 @@
 #include "Command.h"
 
 #include "Functions.h"
-#include "Static.h"
 
 #include <ll/api/command/DynamicCommand.h>
 #include <mc/server/commands/CommandOrigin.h>
@@ -21,6 +20,12 @@
 
 
 namespace command {
+
+
+const char* COMMAND_NAME        = "midi";
+const char* COMMAND_ALIAS       = "mid";
+const char* COMMAND_DESCRIPTION = "play you midi";
+
 
 // 装载所有命令
 void install() {
