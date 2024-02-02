@@ -2,13 +2,16 @@
  * @Author: CsVeryLoveXieWenLi
  * @Date: 2024-02-02 16:36:23
  * @LastEditors: CsVeryLoveXieWenLi
- * @LastEditTime: 2024-02-02 16:55:30
+ * @LastEditTime: 2024-02-02 18:26:46
  * @Description: 命令注册
  * @QQ: 1172236399
  * @Sign: 有些故事，总是美妙又缥缈，郁郁不得终。
  * @Copyright (c) 2024 by CsVeryLoveXieWenLi, All Rights Reserved.
  */
 
+#include "Command.h"
+
+#include "Functions.h"
 #include "Static.h"
 
 #include <ll/api/command/DynamicCommand.h>
@@ -49,7 +52,7 @@ void install() {
     command->addOverload({"stop"});
 
     // 回调 处理功能
-    // command->setCallback(&handleCommand);
+    command->setCallback(&function::commandCallback);
 
     // 装载命令 -> why move? -> this is unique_ptr
     DynamicCommand::setup(registry, std::move(command));
