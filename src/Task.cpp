@@ -2,7 +2,7 @@
  * @Author: CsVeryLoveXieWenLi
  * @Date: 2024-02-02 17:27:32
  * @LastEditors: CsVeryLoveXieWenLi
- * @LastEditTime: 2024-02-02 19:32:19
+ * @LastEditTime: 2024-02-02 20:01:35
  * @Description: 播放队列
  * @QQ: 1172236399
  * @Sign: 有些故事，总是美妙又缥缈，郁郁不得终。
@@ -67,7 +67,7 @@ void MusicPlayer::play(std::deque<std::deque<uint8>>& notes, std::deque<uint16>&
     this->times.pop_front();
 
     // 每1毫秒检查一次
-    this->scheduler.add<RepeatTask>(std::chrono::milliseconds(1), [&]() {
+    scheduler.add<RepeatTask>(std::chrono::milliseconds(1), [&]() {
         // 每次经过1毫秒
         this->time--;
 
