@@ -2,7 +2,7 @@
  * @Author: CsVeryLoveXieWenLi
  * @Date: 2024-02-02 16:36:23
  * @LastEditors: CsVeryLoveXieWenLi
- * @LastEditTime: 2024-02-02 18:26:46
+ * @LastEditTime: 2024-02-04 04:29:53
  * @Description: 命令注册
  * @QQ: 1172236399
  * @Sign: 有些故事，总是美妙又缥缈，郁郁不得终。
@@ -12,6 +12,7 @@
 #include "Command.h"
 
 #include "Functions.h"
+#include "Static.h"
 
 #include <ll/api/command/DynamicCommand.h>
 #include <mc/server/commands/CommandOrigin.h>
@@ -20,11 +21,6 @@
 
 
 namespace command {
-
-
-const char* COMMAND_NAME        = "midi";
-const char* COMMAND_ALIAS       = "mid";
-const char* COMMAND_DESCRIPTION = "play you midi";
 
 
 // 装载所有命令
