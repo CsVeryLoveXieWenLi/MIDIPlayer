@@ -1,4 +1,15 @@
-# SoundPlayer
+<!--
+ * @Author: CsVeryLoveXieWenLi
+ * @Date: 2024-02-04 04:48:40
+ * @LastEditors: CsVeryLoveXieWenLi
+ * @LastEditTime: 2024-02-04 04:54:39
+ * @Description: 说明文档
+ * QQ: 1172236399
+ * Sign: 有些故事，总是美妙又缥缈，郁郁不得终。
+ * Copyright (c) 2024 by CsVeryLoveXieWenLi, All Rights Reserved. 
+-->
+
+# MIDIPlayer
 
 **一个在LeviLamina中的C++插件，用于播放MIDI文件。**
 
