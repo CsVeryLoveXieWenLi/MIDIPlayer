@@ -23,9 +23,9 @@
 
 ## 使用
 
-**/midi play，文件路径，播放MIDI文件，需要配合资源包。**
+**/midi play 文件绝对路径，播放MIDI文件，会覆盖当前正在播放的MIDI。**
 
-**/midi stop，立即停止播放。**
+**/midi stop，立即停止播放MIDI文件。**
 
 ## 开源协议
 
