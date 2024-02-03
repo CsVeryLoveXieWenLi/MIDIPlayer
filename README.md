@@ -1,35 +1,19 @@
-# LeviLamina Plugin Template
+# SoundPlayer
 
-A LeviLamina plugin template
+**一个在LeviLamina中的C++插件，用于播放MIDI文件。**
 
-This plugin is a template for developing LeviLamina plugins.
+## 安装
 
-## Install
+**1. 在Actions功能中找到最新的，编译成功的插件压缩包。**
 
-Generate a new repository from this template.
+**2 .移动到LeviLamina插件目录，直接解压到当前目录，启动服务器。**
 
-## Usage
+## 使用
 
-Before using this plugin template, make sure that you have installed XMake and a Minecraft Bedrock Server with LeviLamina.
+**/midi play 文件路径，播放MIDI文件，需要配合资源包。**
 
-1. Clone the new repository into a local folder.
+**/midi stop，立即停止播放。**
 
-1. Change the plugin name and the expected LeviLamina version in `xmake.lua`.
+## 开源协议
 
-1. Add your code.
-
-1. Run `xmake repo -u` in the root of the repository.
-
-1. Run `xmake` to build the plugin.
-
-Now the build is complete at `bin/`.
-
-## Contributing
-
-Ask questions by [creating an issue](https://github.com/LiteLDev/levilamina-plugin-template/issues/new/choose).
-
-PRs accepted.
-
-## License
-
-CC0-1.0 © LiteLDev
+MIT © CsVeryLoveXieWenLi
