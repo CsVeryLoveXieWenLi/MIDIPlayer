@@ -2,7 +2,7 @@
  * @Author: CsVeryLoveXieWenLi
  * @Date: 2024-02-02 17:27:32
  * @LastEditors: CsVeryLoveXieWenLi
- * @LastEditTime: 2024-02-02 20:01:35
+ * @LastEditTime: 2024-02-04 04:23:55
  * @Description: 播放队列
  * @QQ: 1172236399
  * @Sign: 有些故事，总是美妙又缥缈，郁郁不得终。
@@ -11,7 +11,6 @@
 
 #include "Task.h"
 
-#include <chrono>
 #include <ll/api/base/StdInt.h>
 #include <ll/api/schedule/Scheduler.h>
 #include <ll/api/schedule/Task.h>
@@ -67,11 +66,11 @@ void MusicPlayer::play(std::deque<std::deque<uint8>>& notes, std::deque<uint16>&
     this->times.pop_front();
 
     // 每1毫秒检查一次
-    scheduler.add<RepeatTask>(std::chrono::milliseconds(1), [&]() {
+    scheduler.add<RepeatTask>(1ms, [&]() {
         // 每次经过1毫秒
         this->time--;
 
-        printf("%zu %i %zu %zu\n", this->note.size(), this->time, this->notes.size(), this->times.size());
+        // printf("%zu %i %zu %zu\n", this->note.size(), this->time, this->notes.size(), this->times.size());
 
         // 播放完毕
         if (this->notes.empty()) {
@@ -85,7 +84,10 @@ void MusicPlayer::play(std::deque<std::deque<uint8>>& notes, std::deque<uint16>&
 
         // 播放
         for (uint8 pitch : this->note) {
-            PlaySoundPacket packet(PIANO_NOTES[pitch - 21], player->getPosition(), 1.0, 1.0);
+            pitch -= 21;
+            if (pitch > 87 || pitch < 0) continue;
+
+            PlaySoundPacket packet(PIANO_NOTES[pitch], player->getPosition(), 1.0, 1.0);
             packet.sendTo(*player);
         }
 
