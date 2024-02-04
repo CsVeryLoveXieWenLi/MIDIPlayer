@@ -2,7 +2,7 @@
  * @Author: CsVeryLoveXieWenLi
  * @Date: 2024-02-02 17:27:32
  * @LastEditors: CsVeryLoveXieWenLi
- * @LastEditTime: 2024-02-04 04:31:39
+ * @LastEditTime: 2024-02-04 18:43:52
  * @Description: 播放队列
  * @QQ: 1172236399
  * @Sign: 有些故事，总是美妙又缥缈，郁郁不得终。
@@ -18,7 +18,6 @@
 #include <ll/api/schedule/Task.h>
 #include <mc/network/packet/PlaySoundPacket.h>
 #include <mc/world/actor/player/Player.h>
-
 
 
 namespace task {
@@ -55,7 +54,10 @@ void MusicPlayer::play(std::deque<std::deque<uint8>>& notes, std::deque<uint16>&
         // 每次经过1毫秒
         this->time--;
 
-        // printf("%zu %i %zu %zu\n", this->note.size(), this->time, this->notes.size(), this->times.size());
+        // 玩家不存在
+        if (player == nullptr) {
+            return stop();
+        }
 
         // 播放完毕
         if (this->notes.empty()) {

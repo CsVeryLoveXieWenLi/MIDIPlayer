@@ -2,7 +2,7 @@
  * @Author: CsVeryLoveXieWenLi
  * @Date: 2024-02-02 17:23:28
  * @LastEditors: CsVeryLoveXieWenLi
- * @LastEditTime: 2024-02-02 18:09:49
+ * @LastEditTime: 2024-02-04 18:51:49
  * @Description: 解析MIDI文件
  * @QQ: 1172236399
  * @Sign: 有些故事，总是美妙又缥缈，郁郁不得终。
@@ -28,10 +28,10 @@ Result parse(std::string& path) {
     using namespace smf;
 
     // 初始化
-    std::deque<std::deque<uint8>> notes;
-    std::deque<uint16>            times;
+    // std::deque<std::deque<uint8>> notes;
+    // std::deque<uint16>            times;
 
-    Result   result(notes, times);
+    Result   result;
     MidiFile file;
 
     // 读取文件
@@ -57,10 +57,10 @@ Result parse(std::string& path) {
     uint16 diff;
 
     MidiEventList* tracks = &file[0];
-    int            length = tracks->size();
+    size_t         length = tracks->size();
 
-    for (int index = 0; index < length; index++) {
-        event = &(*tracks)[index];
+    for (size_t index = 0; index < length; index++) {
+        event = &(*tracks)[(int)index];
 
         // 只记录音符按下
         if (!event->isNoteOn()) continue;
@@ -68,9 +68,9 @@ Result parse(std::string& path) {
         list.push_back(event);
     }
 
-    length = static_cast<int>(list.size());
+    length = static_cast<size_t>(list.size());
 
-    for (int index = 0; index < length; index++) {
+    for (size_t index = 0; index < length; index++) {
         event = list[index];
 
         // 不为0 记录前面的
@@ -92,7 +92,7 @@ Result parse(std::string& path) {
         }
 
         // 时间差非0 不同时演奏 新建集合
-        if (diff > 0) {
+        if (diff > 0 || index == 0) {
             std::deque<uint8> notes;
 
             // 音符
