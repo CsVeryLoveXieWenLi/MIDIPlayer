@@ -2,7 +2,7 @@
  * @Author: CsVeryLoveXieWenLi
  * @Date: 2024-02-02 17:23:28
  * @LastEditors: CsVeryLoveXieWenLi
- * @LastEditTime: 2024-02-04 18:51:49
+ * @LastEditTime: 2024-02-04 19:39:46
  * @Description: 解析MIDI文件
  * @QQ: 1172236399
  * @Sign: 有些故事，总是美妙又缥缈，郁郁不得终。
@@ -88,11 +88,11 @@ Result parse(std::string& path) {
         if (index > 0) {
             diff = time - (uint64)round(old->seconds * 1000);
         } else {
-            diff = time;
+            diff = 2000;
         }
 
         // 时间差非0 不同时演奏 新建集合
-        if (diff > 0 || index == 0) {
+        if (diff > 0) {
             std::deque<uint8> notes;
 
             // 音符
